@@ -3,7 +3,7 @@ name: Deploy Node.js App to EC2
 on:
   push:
     branches:
-      - main  # Deploy when code is pushed to main
+      - main
 
 jobs:
   deploy:
@@ -20,9 +20,8 @@ jobs:
 
     - name: Deploy to EC2
       run: |
-        ssh -o StrictHostKeyChecking=no ubuntu@<EC2_PUBLIC_IP> << 'EOF'
+        ssh -o StrictHostKeyChecking=no ubuntu@3.88.202.206 << 'EOF'
           cd /home/ubuntu/myapp
-          git reset --hard
           git pull origin main
           npm install
           pm2 restart myapp || pm2 start index.js --name myapp
